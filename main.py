@@ -17,7 +17,7 @@ screen.fill(BLACK)
 pygame.display.update()
 clock = pygame.time.Clock()
 
-snake = [[tile_dim, 4 * tile_dim], [2 * tile_dim, 4 * tile_dim], [3 * tile_dim, 4 * tile_dim]]
+snake = [[3 * tile_dim, 4 * tile_dim], [2 * tile_dim, 4 * tile_dim], [tile_dim, 4 * tile_dim]]
 direction = [tile_dim, 0]
 
 apple = []
@@ -30,14 +30,23 @@ def spawn_apple():
     global apple
     overlap = True
     while overlap:
-        apple = [random.randint(0, w // tile_dim) * tile_dim,
-                 random.randint(0, h // tile_dim) * tile_dim]
+        apple = [random.randint(0, w // tile_dim - 1) * tile_dim,
+                 random.randint(0, h // tile_dim - 1) * tile_dim]
         snake_head = pygame.Rect(snake[0].copy(), [tile_dim, tile_dim])
         overlap = snake_head.colliderect(pygame.Rect(apple.copy(),
                                                      [tile_dim, tile_dim]))
 
+
 def eat_apple():
-    pass
+    global apple_eaten
+    global snake
+    snake_head = pygame.Rect(snake[0].copy(), [tile_dim, tile_dim])
+    overlap = snake_head.colliderect(pygame.Rect(apple.copy(),
+                                                 [tile_dim, tile_dim]))
+    if overlap:
+        apple_eaten = True
+        snake.append(snake[-1].copy())
+
 
 def draw_tiles():
     for i in range(w // tile_dim):
@@ -57,9 +66,15 @@ def snake_move():
         snake[i] = snake[i - 1].copy()
     snake[0] = [snake[0][0] + direction[0], snake[0][1] + direction[1]]
 
+
 def check_collision():
     if snake[0][0] < 0 or snake[0][0] >= w or snake[0][1] < 0 or snake[0][1] >= h:
         return True
+    snake_head = pygame.Rect(snake[0].copy(), [tile_dim, tile_dim])
+    for i in range(1, len(snake)):
+        body_part = pygame.Rect(snake[i].copy(), [tile_dim, tile_dim])
+        if snake_head.colliderect(body_part):
+            return True
     return False
 
 
@@ -70,14 +85,15 @@ def main():
     while not end_game:
         clock.tick(fps)
         screen.fill(BLACK)
+        if apple_eaten:
+            spawn_apple()
+            apple_eaten = False
         snake_move()
         end_game = check_collision()
         draw_tiles()
         draw_snake()
-        if apple_eaten:
-            spawn_apple()
-            apple_eaten = False
         pygame.draw.rect(screen, RED, (apple[0], apple[1], tile_dim, tile_dim))
+        eat_apple()
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
