@@ -30,15 +30,20 @@ ai_plays = True
 
 possible_moves = [[0, tile_dim], [0, -tile_dim], [tile_dim, 0], [-tile_dim, 0]]
 
+
 def spawn_apple():
     global apple
     overlap = True
     while overlap:
         apple = [random.randint(0, w // tile_dim - 1) * tile_dim,
                  random.randint(0, h // tile_dim - 1) * tile_dim]
-        snake_head = pygame.Rect(snake[0].copy(), [tile_dim, tile_dim])
-        overlap = snake_head.colliderect(pygame.Rect(apple.copy(),
-                                                     [tile_dim, tile_dim]))
+        apple_rect = pygame.Rect(apple.copy(),
+                                 [tile_dim, tile_dim])
+        for i in range(len(snake)):
+            snake_part = pygame.Rect(snake[i].copy(), [tile_dim, tile_dim])
+            overlap = snake_part.colliderect(apple_rect)
+            if overlap:
+                break
 
 
 def eat_apple():
