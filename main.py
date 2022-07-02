@@ -1,8 +1,9 @@
 import pygame
 import random
+import math
 
 w, h = 600, 600
-tile_dim = 60
+tile_dim = 30
 tile_thickness = 2
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -25,6 +26,9 @@ apple_eaten = True
 
 end_game = False
 
+ai_plays = True
+
+possible_moves = [[0, tile_dim], [0, -tile_dim], [tile_dim, 0], [-tile_dim, 0]]
 
 def spawn_apple():
     global apple
@@ -95,26 +99,41 @@ def main():
         pygame.draw.rect(screen, RED, (apple[0], apple[1], tile_dim, tile_dim))
         eat_apple()
         pygame.display.update()
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                end_game = True
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_DOWN:
-                    if direction[1] == -tile_dim:
-                        break
-                    direction = [0, tile_dim]
-                elif event.key == pygame.K_UP:
-                    if direction[1] == tile_dim:
-                        break
-                    direction = [0, -tile_dim]
-                elif event.key == pygame.K_RIGHT:
-                    if direction[0] == -tile_dim:
-                        break
-                    direction = [tile_dim, 0]
-                elif event.key == pygame.K_LEFT:
-                    if direction[0] == tile_dim:
-                        break
-                    direction = [-tile_dim, 0]
+        if not ai_plays:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    end_game = True
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_DOWN:
+                        if direction[1] == -tile_dim:
+                            break
+                        direction = [0, tile_dim]
+                    elif event.key == pygame.K_UP:
+                        if direction[1] == tile_dim:
+                            break
+                        direction = [0, -tile_dim]
+                    elif event.key == pygame.K_RIGHT:
+                        if direction[0] == -tile_dim:
+                            break
+                        direction = [tile_dim, 0]
+                    elif event.key == pygame.K_LEFT:
+                        if direction[0] == tile_dim:
+                            break
+                        direction = [-tile_dim, 0]
+        else:
+            chosen_move = possible_moves[0].copy()
+            min_dist = math.inf
+            old_snake_head = snake[0].copy()
+            for move in possible_moves:
+                snake[0] = [old_snake_head[0] + move[0], old_snake_head[1] + move[1]]
+                is_collision = check_collision()
+                if not is_collision:
+                    dist = abs(snake[0][0] - apple[0]) + abs(snake[0][1] - apple[1])
+                    if dist < min_dist:
+                        chosen_move = move.copy()
+                        min_dist = dist
+            direction = chosen_move.copy()
+            snake[0] = old_snake_head.copy()
 
 
 if __name__ == "__main__":
