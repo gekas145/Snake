@@ -1,3 +1,3 @@
 # Snake
 
-<img src="snake.gif" width="300" height="300"/>
+<img src="snake.gif" width="400" height="400"/>
