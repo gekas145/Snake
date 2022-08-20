@@ -26,7 +26,7 @@ apple_eaten = True
 
 end_game = False
 
-ai_plays = False
+ai_plays = True
 
 possible_moves = [[0, tile_dim], [0, -tile_dim], [tile_dim, 0], [-tile_dim, 0]]
 
@@ -104,19 +104,19 @@ def main():
                     if event.key == pygame.K_DOWN:
                         if direction[1] == -tile_dim:
                             break
-                        direction = [0, tile_dim]
+                        direction = possible_moves[0]
                     elif event.key == pygame.K_UP:
                         if direction[1] == tile_dim:
                             break
-                        direction = [0, -tile_dim]
+                        direction = possible_moves[1]
                     elif event.key == pygame.K_RIGHT:
                         if direction[0] == -tile_dim:
                             break
-                        direction = [tile_dim, 0]
+                        direction = possible_moves[2]
                     elif event.key == pygame.K_LEFT:
                         if direction[0] == tile_dim:
                             break
-                        direction = [-tile_dim, 0]
+                        direction = possible_moves[3]
         else:
             chosen_move = possible_moves[0].copy()
             min_dist = math.inf
