@@ -17,3 +17,5 @@ Used sources:
 [1] Berkeley RL bootcamp: https://www.youtube.com/playlist?list=PLAdk-EyP1ND8MqJEJnSvaoUShrAWYe51U
 
 [2] RL keras examples: https://keras.io/examples/rl/
+
+[3] OpenAI Baselines repository: https://github.com/openai/baselines
