@@ -23,6 +23,8 @@ num_actions = 4
 memory_length = 3 # how many last game frames will snake see
 snake_env = FrameStack(SnakeGame(), memory_length)
 
+# adopted version of https://keras.io/examples/rl/deep_q_network_breakout/
+
 model, target_model = get_model(env_w, env_h, num_actions, memory_length), get_model(env_w, env_h, num_actions, memory_length)
 optimizer = keras.optimizers.Adam(learning_rate=0.001, clipnorm=1.0)
 
@@ -152,7 +154,7 @@ while True:  # Run until solved
 
     episode_count += 1
 
-    if running_reward > 10:  # Condition to consider the task solved
+    if running_reward > 8:  # Condition to consider the task solved
         break
 
 target_model.save('snake_net.keras')
