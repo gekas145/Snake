@@ -9,5 +9,5 @@ CNN | Greedy
 ![](images/cnn.gif)  |  ![](images/greedy.gif)
 
 <p align="center">
-<img src="images/boxplot.png" width="330" height="300"/>
+<img src="images/boxplot.png" width="350" height="300"/>
 </p>
