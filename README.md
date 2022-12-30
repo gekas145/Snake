@@ -11,3 +11,9 @@ CNN | Greedy
 <p align="center">
 <img src="images/boxplot.png" width="350" height="300"/>
 </p>
+
+Used sources:
+
+[1] Berkeley RL bootcamp: https://www.youtube.com/playlist?list=PLAdk-EyP1ND8MqJEJnSvaoUShrAWYe51U
+
+[2] RL keras examples: https://keras.io/examples/rl/
