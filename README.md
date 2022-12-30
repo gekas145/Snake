@@ -8,4 +8,6 @@ CNN | Greedy
 :-------------------------:|:-------------------------:
 ![](images/cnn.gif)  |  ![](images/greedy.gif)
 
-<img src="images/boxplot.png" width="200" height="200"/>
+<p align="center">
+<img src="images/boxplot.png" width="200" height="300"/>
+</p>
