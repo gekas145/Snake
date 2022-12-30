@@ -12,7 +12,7 @@ CNN | Greedy
 <img src="images/boxplot.png" width="350" height="300"/>
 </p>
 
-The above plot shows distributions of cnn and greedy strategy results obtained from 100 games. Food appearance was defined by sequence of different seeds which was same for both models.
+The above plot shows distributions of cnn and greedy strategy results(1 point for each eaten food piece) obtained from 100 games. Food appearance was defined by sequence of different seeds which was same for both models.
 
 Used sources:
 
